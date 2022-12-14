@@ -8,6 +8,7 @@ user --name=vagrant --password=vagrant --plaintext
 
 zerombr
 clearpart --all --initlabel
+part /boot/efi --fstype=efi --grow --maxsize=200 --size=20
 part /boot --fstype="xfs" --size=1024 --label=boot
 part pv.01 --fstype="lvmpv" --grow
 volgroup alma --pesize=4096 pv.01
@@ -15,17 +16,16 @@ logvol swap --fstype="swap" --size=2048 --name=swap --vgname=alma
 logvol / --fstype="xfs" --percent=100 --label="root" --name=root --vgname=alma
 
 firewall --enabled --service=ssh
-authconfig --enableshadow --passalgo=sha512
+authselect --enableshadow --passalgo=sha512
 network --device eth0 --bootproto dhcp --noipv6 --hostname=alma9.localdomain
 bootloader --timeout=1 --append="net.ifnames=0 biosdevname=0 no_timer_check vga=792 nomodeset text"
 
 # repo --name=BaseOS
-url --url=https://dfw.mirror.rackspace.com/almalinux/9.1/BaseOS/x86_64/os/
+url --url=https://dfw.mirror.rackspace.com/almalinux/9.1/BaseOS/aarch64/os/
 
 %packages
 @core
 sudo
-authconfig
 -fprintd-pam
 -intltool
 -iwl*-firmware

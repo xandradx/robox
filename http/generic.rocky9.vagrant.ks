@@ -8,6 +8,7 @@ user --name=vagrant --password=vagrant --plaintext
 
 zerombr
 clearpart --all --initlabel
+part /boot/efi --fstype=efi --grow --maxsize=200 --size=2
 part /boot --fstype="xfs" --size=1024 --label=boot
 part pv.01 --fstype="lvmpv" --grow
 volgroup rocky --pesize=4096 pv.01
@@ -15,17 +16,16 @@ logvol swap --fstype="swap" --size=2048 --name=swap --vgname=rocky
 logvol / --fstype="xfs" --percent=100 --label="root" --name=root --vgname=rocky
 
 firewall --enabled --service=ssh
-authconfig --enableshadow --passalgo=sha512
+authselect --enableshadow --passalgo=sha512
 network --device eth0 --bootproto dhcp --noipv6 --hostname=rocky9.localdomain
 bootloader --timeout=1 --append="net.ifnames=0 biosdevname=0 no_timer_check vga=792 nomodeset text"
 
 # repo --name=BaseOS
-url --url=https://ftp5.gwdg.de/pub/linux/rocky/9.1/BaseOS/x86_64/os/
+url --url=https://ftp5.gwdg.de/pub/linux/rocky/9.1/BaseOS/aarch64/os/
 
 %packages
 @core
 sudo
-authconfig
 -fprintd-pam
 -intltool
 -iwl*-firmware

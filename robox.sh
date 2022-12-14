@@ -1001,7 +1001,8 @@ function list_providers() {
 
 # List all of the box names.
 function list_boxes() {
-  BOXES="$GENERIC_BOXES $ROBOX_BOXES $MAGMA_BOXES $LINEAGE_BOXES $LINEAGEOS_BOXES"
+  BOXES="$GENERIC_BOXES" 
+  #BOXES="$GENERIC_BOXES $ROBOX_BOXES $MAGMA_BOXES $LINEAGE_BOXES $LINEAGEOS_BOXES"
   echo $BOXES
 }
 
