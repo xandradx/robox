@@ -15,7 +15,7 @@ fi
 dnf --assumeyes install dmidecode; error
 
 # Bail if we are not running inside VMWare.
-if [[ `dmidecode -s system-product-name` != "VMware Virtual Platform" ]]; then
+if [[ `dmidecode -s system-product-name` != *"VMware"* ]]; then
     exit 0
 fi
 
